@@ -1,4 +1,6 @@
-with open("001.txt") as f:
+import sys
+
+with open(sys.argv[1]) as f:
     data = list(map(int, f.read().splitlines()))
 
 sdata = set(data)
