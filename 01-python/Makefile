@@ -1,2 +1,2 @@
 run:
-	python3 001.py 001.txt
+	python3 main.py input.txt

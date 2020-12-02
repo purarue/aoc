@@ -1,2 +1,2 @@
 run:
-	scala -deprecation Main.scala 002.txt
+	scala -deprecation Main.scala input.txt
