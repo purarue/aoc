@@ -33,8 +33,7 @@ part_two([C|OuterNums], OrigNums, S) ->
   end.
 
 main(Args) ->
-  [Filename|_] = Args,
+  [Filename] = Args,
   Nums = load_data(Filename),
   Snums = sets:from_list(Nums),
-  io:format("Part 1: ~p~n", [part_one(Nums, Snums)]),
-  io:format("Part 2: ~p~n", [part_two(Nums, Snums)]).
+  io:format("Part 1: ~p~nPart 2: ~p~n", [part_one(Nums, Snums), part_two(Nums, Snums)]).

@@ -1,6 +1,6 @@
-run: clean main.beam
-	erl -noshell -s main main input.txt -s init stop
-main.beam:
-	erlc main.erl
+run: main.beam
+	erl -noshell -s main main ./input.txt -s init stop
+main.beam: main.erl
+	erlc ./main.erl
 clean:
-	rm -f main.beam erl_crash.dump
+	rm -f ./main.beam ./erl_crash.dump

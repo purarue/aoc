@@ -2,7 +2,6 @@ import scala.io.{Source}
 
 object Main {
   def isValid(line: String): Boolean = {
-    // meh
     val Array(pol, pw) = line.split(":")
     val Array(srange, chars) = pol.split(" ")
     val Array(min, max) = srange.split("-").map(_.toInt)
