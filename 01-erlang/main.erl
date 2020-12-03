@@ -22,7 +22,7 @@ part_one([C|N], S, Tar) ->
     false -> part_one(N, S, Tar)
   end.
 
-%% y acts as the outer loop value
+%% C acts as the outer loop value
 part_two(N, S) -> part_two(N, N, S).
 part_two([], _, _) -> error;
 part_two([C|OuterNums], OrigNums, S) ->
