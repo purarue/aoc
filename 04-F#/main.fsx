@@ -49,17 +49,14 @@ let validHeight(value: string) =
   | "in" -> between(vnum, 59, 76)
   | _ -> false
 
-let validHair(value: string) =
-  let valid = "1234567890abcdef" |> Seq.map string |> Set.ofSeq
-  if value.Length = 7 then
-    valid |> Set.isSubset(value.[1..6] |> Seq.map string |> Set.ofSeq)
-  else
-    false
 
+let validHairs = "1234567890abcdef" |> Seq.map string |> Set.ofSeq
+let validHair(value: string) =
+  value.Length = 7 && validHairs |> Set.isSubset(value.[1..6] |> Seq.map string |> Set.ofSeq)
+
+let validEyes = ["amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth"] |> Set.ofList
 let validEye(value: string) =
-  ["amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth"]
-  |> Set.ofList
-  |> Set.contains(value)
+  validEyes |> Set.contains(value)
 
 let partTwoRule(key: string, value: string) =
   match key with
