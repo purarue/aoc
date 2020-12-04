@@ -20,10 +20,11 @@ let parseLine (line: string) =
 let parseFile (filename: string) =
   System.IO.File.ReadAllLines filename
   |> Seq.ofArray
-  // split into passport data, separated by empty lines
+  // split into individual passport data lines, split by empty lines
   |> splitBy ((=) "")
-  // join all passport data into a string
-  |> Seq.map(fun pRawList -> System.String.Join(" ", pRawList |> Seq.toArray).Trim(' '))
+  // join multiple passport data lines into a string
+  |> Seq.map(fun pRawList -> (pRawList |> String.concat " ").Trim(' '))
+  // parse into a map
   |> Seq.map(fun line -> parseLine(line))
   |> Seq.toList
 
@@ -73,12 +74,20 @@ let partTwoRule(key: string, value: string) =
 
 let partTwo(pmap: Map<string,string>) =
   partOne(pmap) &&
-  (pmap |> Map.toSeq
-  |> Seq.forall(fun (key, value) -> partTwoRule(key, value)))
+  pmap |> Map.toSeq |> Seq.forall(fun (key, value) -> partTwoRule(key, value))
+
+let part filterf (prob: int) (lst: Map<string, string> list) =
+  lst
+  |> List.filter(fun m -> filterf(m))
+  |> List.length
+  |> sprintf "Part %d: %d" prob
 
 [<EntryPoint>]
 let main args =
-  let passports = args.[0] |> parseFile
-  passports |> List.filter(fun m -> partOne(m)) |> List.length |> printfn "Part 1: %d"
-  passports |> List.filter(fun m -> partTwo(m)) |> List.length |> printfn "Part 2: %d"
+  let passports = parseFile args.[0]
+  [ partOne; partTwo ]
+  |> Seq.ofList
+  |> Seq.mapi ( fun i func -> passports |> part func (i + 1))
+  |> String.concat "\n"
+  |> printfn "%s"
   0
