@@ -14,7 +14,7 @@ let splitBy f input =
 let parseLine (line: string) =
   line.Split ' '
   |> Array.map(fun token -> token.Split ':')
-  |> Array.map(fun tok -> (tok.[0], tok.[1]))
+  |> Array.map(fun tokArr -> (tokArr.[0], tokArr.[1]))
   |> Map.ofArray
 
 let parseFile (filename: string) =
@@ -22,10 +22,8 @@ let parseFile (filename: string) =
   |> Seq.ofArray
   // split into individual passport data lines, split by empty lines
   |> splitBy ((=) "")
-  // join multiple passport data lines into a string
-  |> Seq.map(fun pRawList -> (pRawList |> String.concat " ").Trim(' '))
-  // parse into a map
-  |> Seq.map(fun line -> parseLine(line))
+  // join multiple passport data lines into a string, then into a map
+  |> Seq.map(fun pRawList -> (pRawList |> String.concat " ").Trim(' ') |> parseLine)
   |> Seq.toList
 
 let partOne(pmap: Map<string,string>) =
@@ -48,7 +46,6 @@ let validHeight(value: string) =
   | "cm" -> between(vnum, 150, 193)
   | "in" -> between(vnum, 59, 76)
   | _ -> false
-
 
 let validHairs = "1234567890abcdef" |> Seq.map string |> Set.ofSeq
 let validHair(value: string) =
@@ -83,8 +80,7 @@ let part filterf (prob: int) (lst: Map<string, string> list) =
 let main args =
   let passports = parseFile args.[0]
   [ partOne; partTwo ]
-  |> Seq.ofList
-  |> Seq.mapi ( fun i func -> passports |> part func (i + 1))
+  |> List.mapi ( fun i func -> passports |> part func (i + 1))
   |> String.concat "\n"
   |> printfn "%s"
   0
