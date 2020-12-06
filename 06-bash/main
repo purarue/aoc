@@ -29,7 +29,6 @@ part2() {
 				((charset["$key"] == n)) && ((sum++))
 			done
 			charset=()
-			c=''
 			n=0
 		else
 			((n++))
