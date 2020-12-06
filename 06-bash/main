@@ -10,7 +10,7 @@ part1() {
 			charset=()
 		else
 			for ((i = 0; i < ${#line}; i++)); do
-				charset["${line:$i:1}"]+=1
+				charset["${line:${i}:1}"]+=1
 			done
 		fi
 	done < <(cat ./"$1" <(echo)) # add an extra newline
@@ -26,14 +26,14 @@ part2() {
 	while read -r line; do
 		if [[ -z "${line}" ]]; then
 			for key in "${!charset[@]}"; do
-				((charset["$key"] == n)) && ((sum++))
+				((charset["${key}"] == n)) && ((sum++))
 			done
 			charset=()
 			n=0
 		else
 			((n++))
 			for ((i = 0; i < ${#line}; i++)); do
-				c="${line:$i:1}"
+				c="${line:${i}:1}"
 				if [[ -v charset["${c}"] ]]; then # already in array
 					((charset["${c}"]++))
 				else
