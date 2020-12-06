@@ -22,10 +22,10 @@ def main(datafile)
   input = (IO.read datafile).split "\n"
   ids = input.map { |ln| seat_number(ln) }
   # part one
-  puts ids.max
+  puts "Part 1: #{ids.max}"
   # part two
   sids = ids.to_set
-  puts ((sids.min..sids.max).to_set - sids).to_a.first
+  puts "Part 2: #{((sids.min..sids.max).to_set - sids).to_a.first}"
 end
 
 main ARGV.first
