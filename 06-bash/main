@@ -1,0 +1,52 @@
+#!/bin/bash -u
+
+part1() {
+	local -A charset
+	charset=()
+	local sum=0
+	while read -r line; do
+		if [[ -z "${line}" ]]; then
+			((sum += ${#charset[@]}))
+			charset=()
+		else
+			for ((i = 0; i < ${#line}; i++)); do
+				charset["${line:$i:1}"]+=1
+			done
+		fi
+	done < <(cat ./"$1" <(echo)) # add an extra newline
+	echo "Part 1: ${sum}"
+}
+
+part2() {
+	local sum=0
+	local -A charset
+	charset=()
+	local n=0  # number of people in this 'row'
+	local c='' # temp char variable
+	while read -r line; do
+		if [[ -z "${line}" ]]; then
+			for key in "${!charset[@]}"; do
+				if ((charset["$key"] == n)); then
+					((sum++))
+				fi
+			done
+			charset=()
+			c=''
+			n=0
+		else
+			((n++))
+			for ((i = 0; i < ${#line}; i++)); do
+				c="${line:$i:1}"
+				if [[ -v charset["${c}"] ]]; then # already in array
+					((charset["${c}"]++))
+				else
+					charset["${c}"]+=1
+				fi
+			done
+		fi
+	done < <(cat ./"$1" <(echo))
+	echo "Part 2: ${sum}"
+}
+
+part1 "$@" || exit $?
+part2 "$@" || exit $?
