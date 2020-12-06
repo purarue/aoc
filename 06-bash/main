@@ -13,7 +13,7 @@ part1() {
 				charset["${line:${i}:1}"]+=1
 			done
 		fi
-	done < <(cat ./"$1" <(echo)) # add an extra newline
+	done < <(cat "$1" <(echo)) # add an extra newline
 	echo "Part 1: ${sum}"
 }
 
@@ -41,7 +41,7 @@ part2() {
 				fi
 			done
 		fi
-	done < <(cat ./"$1" <(echo))
+	done < <(cat "$1" <(echo))
 	echo "Part 2: ${sum}"
 }
 
