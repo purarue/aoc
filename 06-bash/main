@@ -26,9 +26,7 @@ part2() {
 	while read -r line; do
 		if [[ -z "${line}" ]]; then
 			for key in "${!charset[@]}"; do
-				if ((charset["$key"] == n)); then
-					((sum++))
-				fi
+				((charset["$key"] == n)) && ((sum++))
 			done
 			charset=()
 			c=''
