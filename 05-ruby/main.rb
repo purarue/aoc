@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'set'
+require "set"
 
 def binary_space_partition(encoded)
-  x = 2**encoded.length - 1
+  x = 2 ** encoded.length - 1
   y = 0
   encoded.chars.each do |bit|
-    if Set['B', 'R'].include?(bit)
+    if Set["B", "R"].include?(bit)
       y = x - ((x - y) / 2)
     else
       x = y + ((x - y) / 2)
