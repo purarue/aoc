@@ -5,8 +5,8 @@ object Main {
     val Array(pol, pw) = line.split(":")
     val Array(srange, chars) = pol.split(" ")
     val Array(min, max) = srange.split("-").map(_.toInt)
-    val occurences = pw.count(_ == chars.toCharArray.head)
-    return min <= occurences && occurences <= max
+    val occurrences = pw.count(_ == chars.toCharArray.head)
+    return min <= occurrences && occurrences <= max
   }
 
   def validPartTwo(line: String): Boolean = {
