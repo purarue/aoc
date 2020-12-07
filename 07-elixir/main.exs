@@ -67,18 +67,9 @@ defmodule AdventOfCode do
     part2(parsed_map, bag_count + bcount * part2(parsed_map, 0, parsed_map[color]), other_bags)
   end
 
-  def part(num, map) do
-    result =
-      case num do
-        1 ->
-          part1(map, "shiny gold")
-
-        2 ->
-          part2(map, "shiny gold")
-      end
-
-    "Part #{num}: #{result}" |> IO.puts()
-  end
+  def part(1, map) when is_map(map), do: part(1, part1(map, "shiny gold"))
+  def part(2, map) when is_map(map), do: part(2, part2(map, "shiny gold"))
+  def part(part, result) when is_integer(result), do: "Part #{part}: #{result}" |> IO.puts()
 
   def main() do
     [input_file] = System.argv()
