@@ -67,7 +67,18 @@ defmodule AdventOfCode do
     part2(parsed_map, bag_count + bcount * part2(parsed_map, 0, parsed_map[color]), other_bags)
   end
 
-  def part(result, num), do: "Problem #{num}: #{result}"
+  def part(num, map) do
+    result =
+      case num do
+        1 ->
+          part1(map, "shiny gold")
+
+        2 ->
+          part2(map, "shiny gold")
+      end
+
+    "Part #{num}: #{result}" |> IO.puts()
+  end
 
   def main() do
     [input_file] = System.argv()
@@ -80,8 +91,7 @@ defmodule AdventOfCode do
       |> Enum.map(&parse_line(&1))
       |> Enum.into(Map.new())
 
-    parsed_map |> part1("shiny gold") |> part(1) |> IO.puts()
-    parsed_map |> part2("shiny gold") |> part(2) |> IO.puts()
+    [1, 2] |> Enum.each(&part(&1, parsed_map))
   end
 end
 
