@@ -67,6 +67,8 @@ defmodule AdventOfCode do
     part2(parsed_map, bag_count + bcount * part2(parsed_map, 0, parsed_map[color]), other_bags)
   end
 
+  def part(result, num), do: "Problem #{num}: #{result}"
+
   def main() do
     [input_file] = System.argv()
     {:ok, raw_text} = File.read(input_file)
@@ -78,8 +80,8 @@ defmodule AdventOfCode do
       |> Enum.map(&parse_line(&1))
       |> Enum.into(Map.new())
 
-    IO.puts(part1(parsed_map, "shiny gold"))
-    IO.puts(part2(parsed_map, "shiny gold"))
+    parsed_map |> part1("shiny gold") |> part(1) |> IO.puts()
+    parsed_map |> part2("shiny gold") |> part(2) |> IO.puts()
   end
 end
 
