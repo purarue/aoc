@@ -64,9 +64,9 @@ function part_two(data)
             cdata[line][1] = "nop"
         else
         end
-        line = line + 1
         local result = part_one(cdata)
         if result[1] == "eof" then return result[2] end
+        line = line + 1
     end
 end
 
