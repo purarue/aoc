@@ -56,7 +56,7 @@ end
 
 function part_two(data)
     local line = 1
-    while true do
+    while line <= #data do
         local cdata = copy(data)
         if data[line][1] == "nop" then
             cdata[line][1] = "jmp"
