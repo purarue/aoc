@@ -27,8 +27,7 @@ public class Main {
       for (int i = n - preambleLength; i < n; i++) {
         for (int j = n - preambleLength; j < n; j++) {
           if (i != j && !found) {
-            BigInteger sum = data.get(i).add(data.get(j));
-            found = data.get(n).equals(sum);
+            found = data.get(n).equals(data.get(i).add(data.get(j)));
           }
         }
       }
