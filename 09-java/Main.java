@@ -11,8 +11,7 @@ public class Main {
   public static ArrayList<BigInteger> parseFile(String inputFile)
       throws IOException {
     ArrayList<BigInteger> nums = new ArrayList<BigInteger>();
-    File file = new File(inputFile);
-    BufferedReader br = new BufferedReader(new FileReader(file));
+    BufferedReader br = new BufferedReader(new FileReader(new File(inputFile)));
     String line;
     while ((line = br.readLine()) != null) {
       nums.add(new BigInteger(line));
@@ -59,8 +58,7 @@ public class Main {
   }
 
   public static void main(String[] args) throws IOException {
-    String inputFile = args[0];
-    ArrayList<BigInteger> nums = parseFile(inputFile);
+    ArrayList<BigInteger> nums = parseFile(args[0]);
     BigInteger part1Solution = part1(nums, 25);
     System.out.printf("Part 1: %s\n", part1Solution);
     System.out.printf("Part 2: %s\n", part2(nums, part1Solution));
