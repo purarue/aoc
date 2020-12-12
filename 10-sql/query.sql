@@ -1,5 +1,3 @@
-use aoc;
-
 CREATE OR REPLACE VIEW working AS
 SELECT Val
 FROM
