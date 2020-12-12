@@ -30,10 +30,9 @@ class Position {
 }
 
 class TileChange {
-  TileType from;
   TileType to;
   Position pos;
-  TileChange(this.pos, this.from, this.to);
+  TileChange(this.pos, this.to);
 }
 
 const offsets = [-1, 0, 1];
@@ -85,11 +84,11 @@ class Grid {
         if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 4) {
           changes.add(new TileChange(
-              new Position(i, j), TileType.occupied, TileType.empty));
+              new Position(i, j), TileType.empty));
         } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
           changes.add(new TileChange(
-              new Position(i, j), TileType.empty, TileType.occupied));
+              new Position(i, j), TileType.occupied));
         }
       }
     }
@@ -134,11 +133,11 @@ class Grid {
         if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 5) {
           changes.add(new TileChange(
-              new Position(i, j), TileType.occupied, TileType.empty));
+              new Position(i, j), TileType.empty));
         } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
           changes.add(new TileChange(
-              new Position(i, j), TileType.empty, TileType.occupied));
+              new Position(i, j), TileType.occupied));
         }
       }
     }
