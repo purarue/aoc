@@ -10,9 +10,21 @@ class Tile {
   TileType tile;
   Tile(this.tile);
 
-  Tile copy() {
-    return new Tile(this.tile);
+  Tile.fromRepr(String tileChar) {
+    switch (tileChar) {
+      case '.':
+        this.tile = TileType.floor;
+        break;
+      case 'L':
+        this.tile = TileType.empty;
+        break;
+      case '#':
+        this.tile = TileType.occupied;
+        break;
+    }
   }
+
+  Tile copy() => new Tile(this.tile);
 
   @override
   String toString() {
@@ -61,25 +73,9 @@ class Grid {
     String contents = new File(filename).readAsStringSync();
     List<List<Tile>> nGrid = [];
     // for each line
-    for (var line in contents.split('\n')) {
-      List<Tile> tileLine = [];
-      // for each character
-      for (var char in line.split('')) {
-        switch (char) {
-          case '.':
-            tileLine.add(Tile(TileType.floor));
-            break;
-          case 'L':
-            tileLine.add(Tile(TileType.empty));
-            break;
-          case '#':
-            tileLine.add(Tile(TileType.occupied));
-            break;
-        }
-      };
-      nGrid.add(tileLine);
-    }
-    this.grid = nGrid;
+    this.grid = contents.split('\n').map(
+        (String line) => line.split('').map((String tChar) => Tile.fromRepr(tChar)).toList()
+    ).toList();
   }
 
   // return any changes to the grid as a list
@@ -203,7 +199,7 @@ class Grid {
   }
 }
 
-part(Grid seats, func) {
+int part(Grid seats, func) {
   while (true) {
     int changeCount = func(seats);
     if (changeCount == 0) {
@@ -212,8 +208,8 @@ part(Grid seats, func) {
   }
 }
 
-part1(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartOne()));
-part2(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartTwo()));
+int part1(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartOne()));
+int part2(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartTwo()));
 
 void main(List<String> args) {
   String filename = args[0];
