@@ -21,29 +21,12 @@ class Tile {
   }
 
   Tile copy() => new Tile(this.tile);
-
-  @override
-  String toString() {
-    switch (this.tile) {
-      case TileType.floor:
-        return '.';
-      case TileType.empty:
-        return 'L';
-      case TileType.occupied:
-        return '#';
-    }
-  }
 }
 
 class Position {
   int x;
   int y;
   Position(this.x, this.y);
-
-  @override
-  String toString() {
-    return "Position(${this.x}, ${this.y})";
-  }
 }
 
 class TileChange {
@@ -51,11 +34,6 @@ class TileChange {
   TileType to;
   Position pos;
   TileChange(this.pos, this.from, this.to);
-
-  @override
-  String toString() {
-    return "TileChange(from=${this.from}, to=${this.to}, pos=${this.pos})";
-  }
 }
 
 const offsets = [-1, 0, 1];
@@ -167,15 +145,14 @@ class Grid {
 
   // return the number of applications made
   int applyRules(List<TileChange> changes) {
-    for (var change in changes) {
-      this.grid[change.pos.x][change.pos.y] = new Tile(change.to);
-    }
+    changes.forEach((change) =>
+        this.grid[change.pos.x][change.pos.y] = new Tile(change.to));
     return changes.length;
   }
 
   int countType(TileType ttype) {
     int result = 0;
-    for (var line in this.grid) {
+    for (List<Tile> line in this.grid) {
       for (Tile tile in line) {
         if (tile.tile == ttype) {
           result++;
@@ -186,27 +163,10 @@ class Grid {
   }
 
   Grid copy() {
-    List<List<Tile>> nGrid = [];
-    for (var line in this.grid) {
-      List<Tile> nLine = [];
-      for (Tile tile in line) {
-        nLine.add(tile.copy());
-      }
-      nGrid.add(nLine);
-    }
-    return new Grid(nGrid);
-  }
-
-  @override
-  String toString() {
-    var sb = new StringBuffer();
-    for (var line in this.grid) {
-      for (var pos in line) {
-        sb.write(pos);
-      }
-      sb.write("\n");
-    }
-    return sb.toString().trim();
+    return Grid(this
+        .grid
+        .map((List<Tile> line) => line.map((Tile tile) => tile.copy()).toList())
+        .toList());
   }
 }
 
