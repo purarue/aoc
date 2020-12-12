@@ -31,8 +31,9 @@ public class Main {
           }
         }
       }
-      if (!found)
+      if (!found) {
         return data.get(n);
+      }
     }
     return null;
   }
@@ -57,8 +58,14 @@ public class Main {
     return null;
   }
 
-  public static void main(String[] args) throws IOException {
-    ArrayList<BigInteger> nums = parseFile(args[0]);
+  public static void main(String[] args) {
+    ArrayList<BigInteger> nums = null;
+    try {
+      nums = parseFile(args[0]);
+    } catch (IOException ioe) {
+      System.err.println(ioe.toString());
+      System.exit(1);
+    }
     BigInteger part1Solution = part1(nums, 25);
     System.out.printf("Part 1: %s\n", part1Solution);
     System.out.printf("Part 2: %s\n", part2(nums, part1Solution));
