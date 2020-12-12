@@ -74,17 +74,16 @@ class Instruction
 {
     public $action;
     public $value;
-    public function __construct($line)
+    public function __construct($action, $value)
     {
-        $this->action = Action::fromCode(substr($line, 0, 1));
-        $this->value = intval(substr($line, 1));
+        $this->action = $action;
+        $this->value = $value;
     }
-    public function fromVal($action, $value)
+    public function fromLine($line)
     {
-        $instance = new self("R270"); // dummy value
-        $instance->action = $action;
-        $instance->value = $value;
-        return $instance;
+        $parsedAction = Action::fromCode(substr($line, 0, 1));
+        $parsedValue = intval(substr($line, 1));
+        return new Instruction($parsedAction, $parsedValue);
     }
 }
 
@@ -119,9 +118,7 @@ class Ship
                 $this->dir->rotate($instr->value % 360);
                 break;
             case Action::Forward:
-                $this->move(
-                    Instruction::fromVal($this->dir->facing, $instr->value)
-                );
+                $this->move(new Instruction($this->dir->facing, $instr->value));
                 break;
         }
     }
@@ -140,7 +137,7 @@ function parseFile($inputFile)
         as $line
     ) {
         if (strlen($line)) {
-            array_push($parsed, new Instruction($line));
+            array_push($parsed, Instruction::fromLine($line));
         }
     }
     return $parsed;
