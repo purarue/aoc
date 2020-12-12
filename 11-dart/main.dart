@@ -172,8 +172,7 @@ class Grid {
 
 int part(Grid seats, func) {
   while (true) {
-    int changeCount = func(seats);
-    if (changeCount == 0) {
+    if (func(seats) == 0) {
       return seats.countType(TileType.occupied);
     }
   }
