@@ -225,6 +225,6 @@ int part2(Grid seats) =>
 void main(List<String> args) {
   String filename = args[0];
   Grid seats = Grid.fromFile(filename);
-  print(part1(seats.copy()));
-  print(part2(seats.copy()));
+  print("Part 1: " + part1(seats.copy()).toString());
+  print("Part 2: " + part2(seats.copy()).toString());
 }
