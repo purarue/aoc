@@ -20,7 +20,7 @@ def seat_number(line)
 end
 
 def main(datafile)
-  input = (IO.read datafile).split "\n"
+  input = (IO.read datafile).strip.split "\n"
   ids = input.map { |ln| seat_number(ln) }
   # part one
   puts "Part 1: #{ids.max}"
