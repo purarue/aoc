@@ -1,10 +1,6 @@
 import 'dart:io';
 
-enum TileType {
-  floor,
-  empty,
-  occupied
-}
+enum TileType { floor, empty, occupied }
 
 class Tile {
   TileType tile;
@@ -73,9 +69,11 @@ class Grid {
     String contents = new File(filename).readAsStringSync();
     List<List<Tile>> nGrid = [];
     // for each line
-    this.grid = contents.split('\n').map(
-        (String line) => line.split('').map((String tChar) => Tile.fromRepr(tChar)).toList()
-    ).toList();
+    this.grid = contents
+        .split('\n')
+        .map((String line) =>
+            line.split('').map((String tChar) => Tile.fromRepr(tChar)).toList())
+        .toList();
   }
 
   // return any changes to the grid as a list
@@ -85,13 +83,17 @@ class Grid {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
         // find adjacent cells
-        for (var a in [-1,0,1]) {
-          for (var b in [-1,0,1]) {
+        for (var a in [-1, 0, 1]) {
+          for (var b in [-1, 0, 1]) {
             // new positions to test
             int nx = i + a;
             int ny = j + b;
-            if (!(nx == i && ny == j)) { // ignore own cell
-              if (nx >= 0 && nx < this.grid.length && ny >= 0 && ny < this.grid[nx].length) {
+            if (!(nx == i && ny == j)) {
+              // ignore own cell
+              if (nx >= 0 &&
+                  nx < this.grid.length &&
+                  ny >= 0 &&
+                  ny < this.grid[nx].length) {
                 // valid cell
                 if (this.grid[nx][ny].tile == TileType.occupied) {
                   adjacentOccupied++;
@@ -100,10 +102,14 @@ class Grid {
             }
           }
         }
-        if (this.grid[i][j].tile == TileType.occupied && adjacentOccupied >= 4) {
-          changes.add(new TileChange(new Position(i,j), TileType.occupied, TileType.empty));
-        } else if (this.grid[i][j].tile == TileType.empty && adjacentOccupied == 0) {
-          changes.add(new TileChange(new Position(i,j), TileType.empty, TileType.occupied));
+        if (this.grid[i][j].tile == TileType.occupied &&
+            adjacentOccupied >= 4) {
+          changes.add(new TileChange(
+              new Position(i, j), TileType.occupied, TileType.empty));
+        } else if (this.grid[i][j].tile == TileType.empty &&
+            adjacentOccupied == 0) {
+          changes.add(new TileChange(
+              new Position(i, j), TileType.empty, TileType.occupied));
         }
       }
     }
@@ -116,8 +122,8 @@ class Grid {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
         // find adjacent cells
-        for (var a in [-1,0,1]) {
-          for (var b in [-1,0,1]) {
+        for (var a in [-1, 0, 1]) {
+          for (var b in [-1, 0, 1]) {
             // new positions to test
             if (a == 0 && b == 0) {
               continue;
@@ -127,7 +133,10 @@ class Grid {
               // look in this direction, multiply by 'view' distance
               int nx = i + (a * view);
               int ny = j + (b * view);
-              if (nx >= 0 && nx < this.grid.length && ny >= 0 && ny < this.grid[nx].length) {
+              if (nx >= 0 &&
+                  nx < this.grid.length &&
+                  ny >= 0 &&
+                  ny < this.grid[nx].length) {
                 // valid cell
                 if (this.grid[nx][ny].tile == TileType.occupied) {
                   adjacentOccupied++;
@@ -144,10 +153,14 @@ class Grid {
             }
           }
         }
-        if (this.grid[i][j].tile == TileType.occupied && adjacentOccupied >= 5) {
-          changes.add(new TileChange(new Position(i,j), TileType.occupied, TileType.empty));
-        } else if (this.grid[i][j].tile == TileType.empty && adjacentOccupied == 0) {
-          changes.add(new TileChange(new Position(i,j), TileType.empty, TileType.occupied));
+        if (this.grid[i][j].tile == TileType.occupied &&
+            adjacentOccupied >= 5) {
+          changes.add(new TileChange(
+              new Position(i, j), TileType.occupied, TileType.empty));
+        } else if (this.grid[i][j].tile == TileType.empty &&
+            adjacentOccupied == 0) {
+          changes.add(new TileChange(
+              new Position(i, j), TileType.empty, TileType.occupied));
         }
       }
     }
@@ -208,8 +221,10 @@ int part(Grid seats, func) {
   }
 }
 
-int part1(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartOne()));
-int part2(Grid seats) => part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartTwo()));
+int part1(Grid seats) =>
+    part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartOne()));
+int part2(Grid seats) =>
+    part(seats, (Grid gr) => gr.applyRules(gr.checkRulesPartTwo()));
 
 void main(List<String> args) {
   String filename = args[0];
