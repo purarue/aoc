@@ -45,10 +45,10 @@ public class Main {
         // if the sum matches the answer from part 1
         if (sum.equals(target)) {
           // find min/max in sub array
-          List<BigInteger> contigious = data.subList(i, j + 1);
-          return Collections.min(contigious).add(Collections.max(contigious));
+          List<BigInteger> contiguous = data.subList(i, j + 1);
+          return Collections.min(contiguous).add(Collections.max(contiguous));
         } else if (sum.compareTo(target) > 0) {
-          // if the contigious sum is larger than target, check next number
+          // if the contiguous sum is larger than target, check next number
           break;
         }
       }
