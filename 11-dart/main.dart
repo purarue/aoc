@@ -3,24 +3,24 @@ import 'dart:io';
 enum TileType { floor, empty, occupied }
 
 class Tile {
-  TileType tile;
-  Tile(this.tile);
+  TileType status;
+  Tile(this.status);
 
   Tile.fromCode(String tileChar) {
     switch (tileChar) {
       case '.':
-        this.tile = TileType.floor;
+        this.status = TileType.floor;
         break;
       case 'L':
-        this.tile = TileType.empty;
+        this.status = TileType.empty;
         break;
       case '#':
-        this.tile = TileType.occupied;
+        this.status = TileType.occupied;
         break;
     }
   }
 
-  Tile copy() => new Tile(this.tile);
+  Tile copy() => new Tile(this.status);
 }
 
 class Position {
@@ -76,17 +76,17 @@ class Grid {
                 ny >= 0 &&
                 ny < this.grid[nx].length) {
               // valid cell
-              if (this.grid[nx][ny].tile == TileType.occupied) {
+              if (this.grid[nx][ny].status == TileType.occupied) {
                 adjacentOccupied++;
               }
             }
           }
         }
-        if (this.grid[i][j].tile == TileType.occupied &&
+        if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 4) {
           changes.add(new TileChange(
               new Position(i, j), TileType.occupied, TileType.empty));
-        } else if (this.grid[i][j].tile == TileType.empty &&
+        } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
           changes.add(new TileChange(
               new Position(i, j), TileType.empty, TileType.occupied));
@@ -116,10 +116,10 @@ class Grid {
                   ny >= 0 &&
                   ny < this.grid[nx].length) {
                 // valid cell
-                if (this.grid[nx][ny].tile == TileType.occupied) {
+                if (this.grid[nx][ny].status == TileType.occupied) {
                   adjacentOccupied++;
                   break;
-                } else if (this.grid[nx][ny].tile == TileType.empty) {
+                } else if (this.grid[nx][ny].status == TileType.empty) {
                   // empty seats stop a person from seeing adjacent seats that are further away
                   break;
                 }
@@ -131,11 +131,11 @@ class Grid {
             }
           }
         }
-        if (this.grid[i][j].tile == TileType.occupied &&
+        if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 5) {
           changes.add(new TileChange(
               new Position(i, j), TileType.occupied, TileType.empty));
-        } else if (this.grid[i][j].tile == TileType.empty &&
+        } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
           changes.add(new TileChange(
               new Position(i, j), TileType.empty, TileType.occupied));
@@ -155,7 +155,7 @@ class Grid {
   int countType(TileType ttype) {
     int result = 0;
     this.grid.forEach((List<Tile> line) =>
-        line.forEach((tile) => result += (tile.tile == ttype) ? 1 : 0));
+        line.forEach((tile) => result += (tile.status == ttype) ? 1 : 0));
     return result;
   }
 
@@ -183,6 +183,6 @@ int part2(Grid seats) =>
 void main(List<String> args) {
   String filename = args[0];
   Grid seats = Grid.fromFile(filename);
-  print("Part 1: " + part1(seats.copy()).toString());
-  print("Part 2: " + part2(seats.copy()).toString());
+  print("Part 1: ${part1(seats.copy())}");
+  print("Part 2: ${part2(seats)}");
 }
