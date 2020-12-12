@@ -133,12 +133,10 @@ function parseFile($inputFile)
 {
     $parsed = [];
     foreach (
-        preg_split("/((\r?\n)|(\r\n?))/", file_get_contents($inputFile))
+        preg_split("/((\r?\n)|(\r\n?))/", trim(file_get_contents($inputFile)))
         as $line
     ) {
-        if (strlen($line)) {
-            array_push($parsed, Instruction::fromLine($line));
-        }
+        array_push($parsed, Instruction::fromLine($line));
     }
     return $parsed;
 }
