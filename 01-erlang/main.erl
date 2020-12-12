@@ -4,7 +4,7 @@
 
 load_data(From) ->
   {ok, Data} = file:read_file(From),
-  %% global splits on all occurences, not just first
+  %% global splits on all occurrences, not just first
   Lines = binary:split(string:trim(Data), <<"\n">>, [global]),
   %% https://stackoverflow.com/a/12508106/9348376
   Nums = [begin {Int,_}=string:to_integer(Ln), Int end || Ln <- Lines],
