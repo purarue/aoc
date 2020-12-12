@@ -58,6 +58,8 @@ class TileChange {
   }
 }
 
+const offsets = [-1, 0, 1];
+
 class Grid {
   List<List<Tile>> grid;
 
@@ -82,8 +84,8 @@ class Grid {
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
-        for (var a in [-1, 0, 1]) {
-          for (var b in [-1, 0, 1]) {
+        for (var a in offsets) {
+          for (var b in offsets) {
             if (a == 0 && b == 0) {
               continue;
             }
@@ -119,8 +121,8 @@ class Grid {
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
-        for (var a in [-1, 0, 1]) {
-          for (var b in [-1, 0, 1]) {
+        for (var a in offsets) {
+          for (var b in offsets) {
             if (a == 0 && b == 0) {
               continue;
             }
