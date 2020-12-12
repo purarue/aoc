@@ -6,7 +6,7 @@ class Tile {
   TileType tile;
   Tile(this.tile);
 
-  Tile.fromRepr(String tileChar) {
+  Tile.fromCode(String tileChar) {
     switch (tileChar) {
       case '.':
         this.tile = TileType.floor;
@@ -51,8 +51,10 @@ class Grid {
     // for each line
     this.grid = contents
         .split('\n')
-        .map((String line) =>
-            line.split('').map((String tChar) => Tile.fromRepr(tChar)).toList())
+        .map((String line) => line
+            .split('')
+            .map((String codeChar) => Tile.fromCode(codeChar))
+            .toList())
         .toList();
   }
 
@@ -152,13 +154,8 @@ class Grid {
 
   int countType(TileType ttype) {
     int result = 0;
-    for (List<Tile> line in this.grid) {
-      for (Tile tile in line) {
-        if (tile.tile == ttype) {
-          result++;
-        }
-      }
-    }
+    this.grid.forEach((List<Tile> line) =>
+        line.forEach((tile) => result += (tile.tile == ttype) ? 1 : 0));
     return result;
   }
 
