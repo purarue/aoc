@@ -82,22 +82,20 @@ class Grid {
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
-        // find adjacent cells
         for (var a in [-1, 0, 1]) {
           for (var b in [-1, 0, 1]) {
-            // new positions to test
+            if (a == 0 && b == 0) {
+              continue;
+            }
             int nx = i + a;
             int ny = j + b;
-            if (!(nx == i && ny == j)) {
-              // ignore own cell
-              if (nx >= 0 &&
-                  nx < this.grid.length &&
-                  ny >= 0 &&
-                  ny < this.grid[nx].length) {
-                // valid cell
-                if (this.grid[nx][ny].tile == TileType.occupied) {
-                  adjacentOccupied++;
-                }
+            if (nx >= 0 &&
+                nx < this.grid.length &&
+                ny >= 0 &&
+                ny < this.grid[nx].length) {
+              // valid cell
+              if (this.grid[nx][ny].tile == TileType.occupied) {
+                adjacentOccupied++;
               }
             }
           }
@@ -121,10 +119,8 @@ class Grid {
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
         int adjacentOccupied = 0;
-        // find adjacent cells
         for (var a in [-1, 0, 1]) {
           for (var b in [-1, 0, 1]) {
-            // new positions to test
             if (a == 0 && b == 0) {
               continue;
             }
