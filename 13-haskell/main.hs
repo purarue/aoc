@@ -48,6 +48,7 @@ main = do
           $ splitCommas
           $ last inputLines
   let busIds = map snd busIdsIndex
+  putStr "Part 1: "
   print $ part1 target busIds 0
   -- brute force solution, takes ages
   -- I believe this would eventually work, but I'm not going to sit here
