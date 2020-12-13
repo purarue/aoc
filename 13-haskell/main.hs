@@ -50,5 +50,7 @@ main = do
   let busIds = map snd busIdsIndex
   print $ part1 target busIds 0
   -- brute force solution, takes ages
-  print $ part2 busIdsIndex 0 $ head busIds
+  -- I believe this would eventually work, but I'm not going to sit here
+  -- and run it for hours
+  -- print $ part2 busIdsIndex 0 $ head busIds
 
