@@ -31,8 +31,9 @@ part2 busIdsIndex current skipBy
   -- which means its divisible;
   -- it departed at that time
   existsAtOffset =
-    map (\(tar, i) -> tar `rem` snd (busIdsIndex !! i) == 0)
-      $ zip targets [0 ..]
+     zipWith
+     (\ tar i -> tar `rem` snd (busIdsIndex !! i) == 0)
+    targets [0 .. ]
 
 main :: IO ()
 main = do
