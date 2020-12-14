@@ -7,7 +7,7 @@ end
 
 is_mask(i::Instruction) = i.type == mask
 
-function parse_file(input_file)
+function parse_file(input_file::String)
   parsed = []
   open(input_file) do file
     for ln in eachline(file)
@@ -21,7 +21,7 @@ function parse_file(input_file)
   return parsed
 end
 
-function apply_mask(cmask, num)
+function apply_mask(cmask::String, num::Int64)
   for (index, val) in enumerate(reverse(cmask))
     if val != 'X'
       ival = parse(Int64,val)
