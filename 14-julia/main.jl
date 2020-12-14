@@ -24,8 +24,7 @@ end
 function apply_mask(cmask::String, num::Int64)
   for (index, val) in enumerate(reverse(cmask))
     if val != 'X'
-      ival = parse(Int64,val)
-      if ival == 0
+      if val == '0'
         # clear bit
         num &= ~(1 << (index - 1));
       else
