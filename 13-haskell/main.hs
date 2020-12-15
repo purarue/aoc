@@ -1,4 +1,4 @@
-import System.Environment (getArgs)
+import           System.Environment             ( getArgs )
 
 splitCommas :: String -> [String]
 splitCommas buf =
@@ -14,7 +14,7 @@ maxWithIndex lst =
 part1 :: Integer -> [Integer] -> Integer -> Integer
 part1 target busIds multiplier
   | waitTime >= target = (waitTime - target) * (busIds !! fromIntegral maxIndex)
-  | otherwise = part1 target busIds (multiplier + 1)
+  | otherwise          = part1 target busIds (multiplier + 1)
  where
   newIds               = map (* multiplier) busIds
   (maxIndex, waitTime) = maxWithIndex newIds
@@ -31,9 +31,7 @@ part2 busIdsIndex current skipBy
   -- which means its divisible;
   -- it departed at that time
   existsAtOffset =
-     zipWith
-     (\ tar i -> tar `rem` snd (busIdsIndex !! i) == 0)
-    targets [0 .. ]
+    zipWith (\tar i -> tar `rem` snd (busIdsIndex !! i) == 0) targets [0 ..]
 
 main :: IO ()
 main = do

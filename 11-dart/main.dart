@@ -83,12 +83,10 @@ class Grid {
         }
         if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 4) {
-          changes.add(new TileChange(
-              new Position(i, j), TileType.empty));
+          changes.add(new TileChange(new Position(i, j), TileType.empty));
         } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
-          changes.add(new TileChange(
-              new Position(i, j), TileType.occupied));
+          changes.add(new TileChange(new Position(i, j), TileType.occupied));
         }
       }
     }
@@ -132,12 +130,10 @@ class Grid {
         }
         if (this.grid[i][j].status == TileType.occupied &&
             adjacentOccupied >= 5) {
-          changes.add(new TileChange(
-              new Position(i, j), TileType.empty));
+          changes.add(new TileChange(new Position(i, j), TileType.empty));
         } else if (this.grid[i][j].status == TileType.empty &&
             adjacentOccupied == 0) {
-          changes.add(new TileChange(
-              new Position(i, j), TileType.occupied));
+          changes.add(new TileChange(new Position(i, j), TileType.occupied));
         }
       }
     }
