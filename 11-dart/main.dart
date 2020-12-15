@@ -166,7 +166,7 @@ class Grid {
   }
 }
 
-int part(Grid seats, func) {
+int part(Grid seats, int Function(Grid gr) func) {
   while (true) {
     if (func(seats) == 0) {
       return seats.countType(TileType.occupied);
