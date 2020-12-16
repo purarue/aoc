@@ -11,7 +11,7 @@
 
 (defn add-to-hash-link [pspoken last-spoken turn]
   (if (contains? pspoken last-spoken)
-    (assoc pspoken last-spoken (cons turn (pspoken last-spoken)))
+    (assoc pspoken last-spoken (take 2 (cons turn (pspoken last-spoken))))
     (assoc pspoken last-spoken (cons turn '()))))
 
 (defn findresult [spoken cur turn target]
@@ -19,7 +19,6 @@
                    (compute-score (spoken cur))
                    0)
         nspoken (add-to-hash-link spoken next-num turn)]
-    ; (if (= 0 (mod turn 1000)) (println (/ (float turn) target)))
     (if (= turn target)
       next-num
       (recur nspoken next-num (+ 1 turn) target))))
