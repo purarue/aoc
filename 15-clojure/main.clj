@@ -26,13 +26,13 @@
 (defn enum-indices [from lst]
   (map vector lst (map list (drop from (range)))))
 
-(defn part [start-map last-num input-count target-num]
-  (findresult start-map (bigint last-num) (bigint (+ 1 input-count)) (bigint target-num)))
+(defn part [start-map input target-num]
+  (findresult start-map (bigint (last input)) (bigint (+ 1 (count input))) (bigint target-num)))
 
 (defn main [input-file]
   (let [input, (parse-input input-file)
         start-map (apply hash-map (apply concat (enum-indices 1 input)))]
-    (println "Part 1:" (part start-map (last input) (count input) 2020))
-    (println "Part 2:" (part start-map (last input) (count input) 30000000))))
+    (println "Part 1:" (part start-map input 2020))
+    (println "Part 2:" (part start-map input 30000000))))
 
 (main (first *command-line-args*))
