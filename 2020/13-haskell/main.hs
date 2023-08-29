@@ -19,20 +19,6 @@ part1 target busIds multiplier
   newIds               = map (* multiplier) busIds
   (maxIndex, waitTime) = maxWithIndex newIds
 
--- solves by brute force
-part2 :: [(Integer, Integer)] -> Integer -> Integer -> Integer
-part2 busIdsIndex current skipBy
-  | and existsAtOffset = current
-  | otherwise          = part2 busIdsIndex (current + skipBy) skipBy
- where
-    -- compute the required target values, by adding current value to the index
-  targets = map ((+ current) . fst) busIdsIndex
-  -- check if the target value % busId == 0,
-  -- which means its divisible;
-  -- it departed at that time
-  existsAtOffset =
-    zipWith (\tar i -> tar `rem` snd (busIdsIndex !! i) == 0) targets [0 ..]
-
 main :: IO ()
 main = do
   -- parse
@@ -49,7 +35,4 @@ main = do
   let busIds = map snd busIdsIndex
   putStr "Part 1: "
   print $ part1 target busIds 0
-  -- brute force solution, takes ages
-  -- putStr "Part 2: "
-  -- print $ part2 busIdsIndex 0 $ head busIds
 
