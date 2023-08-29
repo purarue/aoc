@@ -30,4 +30,3 @@ Perhaps one of these years I will finally accomplish my goal of solving it in di
 ├── 15-clojure
 └── 16-nim
 ```
-

@@ -29,19 +29,19 @@ class Action
     public function fromCode($char)
     {
         switch ($char) {
-            case 'N':
+            case "N":
                 return Action::North;
-            case 'S':
+            case "S":
                 return Action::South;
-            case 'E':
+            case "E":
                 return Action::East;
-            case 'W':
+            case "W":
                 return Action::West;
-            case 'L':
+            case "L":
                 return Action::Left;
-            case 'R':
+            case "R":
                 return Action::Right;
-            case 'F':
+            case "F":
                 return Action::Forward;
         }
     }
