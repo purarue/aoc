@@ -16,7 +16,7 @@ def binary_space_partition(encoded)
 end
 
 def seat_number(line)
-  binary_space_partition(line[0..6]) * 8 + binary_space_partition(line[7..-1])
+  binary_space_partition(line[0..6]) * 8 + binary_space_partition(line[7..])
 end
 
 def main(datafile)
