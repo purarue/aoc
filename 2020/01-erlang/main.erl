@@ -28,7 +28,7 @@ part_two([], _, _) -> error;
 part_two([C|OuterNums], OrigNums, S) ->
   Midtarget = ?TARGET - C,
   case part_one(OrigNums, S, Midtarget) of
-    error -> part_two(OuterNums, OrigNums, S);  %% part_one couldnt find a solution, try next number
+    error -> part_two(OuterNums, OrigNums, S);  %% part_one couldn't find a solution, try next number
     Prod -> Prod * C
   end.
 
