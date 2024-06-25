@@ -1,11 +1,17 @@
 -- https://stackoverflow.com/a/26367080/9348376
 function copy(obj, seen)
-    if type(obj) ~= 'table' then return obj end
-    if seen and seen[obj] then return seen[obj] end
+    if type(obj) ~= "table" then
+        return obj
+    end
+    if seen and seen[obj] then
+        return seen[obj]
+    end
     local s = seen or {}
     local res = setmetatable({}, getmetatable(obj))
     s[obj] = res
-    for k, v in pairs(obj) do res[copy(k, s)] = copy(v, s) end
+    for k, v in pairs(obj) do
+        res[copy(k, s)] = copy(v, s)
+    end
     return res
 end
 
@@ -14,7 +20,9 @@ function parse_file(filename)
     for line in io.lines(filename) do
         local i = 1
         local parsed = {}
-        for w in string.gmatch(line, "[^%s]+") do table.insert(parsed, w) end
+        for w in string.gmatch(line, "[^%s]+") do
+            table.insert(parsed, w)
+        end
         parsed[2] = tonumber(parsed[2])
         data[#data + 1] = parsed
     end
@@ -65,7 +73,9 @@ function part_two(data)
         else
         end
         local result = part_one(cdata)
-        if result[1] == "eof" then return result[2] end
+        if result[1] == "eof" then
+            return result[2]
+        end
         line = line + 1
     end
 end
